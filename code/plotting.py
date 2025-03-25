@@ -24,7 +24,7 @@ def plot_experiment(experiment, path):
     _, ax = plot_settings(nrows=nrows, ncols=ncols)
 
     plot_lineplot(
-        axis=ax[0],
+        axis=ax,
         xdata=model_num_params,
         ydata=final_losses,
         xlabel="Number of Parameters",
@@ -33,7 +33,7 @@ def plot_experiment(experiment, path):
 
     plt.savefig(
         os.path.join(
-            path, "plots", "plot-subset-" + ".pdf"
+            path, "plots", "loss-plot" + ".pdf"
         ),
         bbox_inches="tight",
     )
