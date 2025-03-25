@@ -1,6 +1,6 @@
 # Decoder-only Transformer
 
-We train a transformer model on a subset of the TinyStories dataset, https://arxiv.org/abs/2305.07759. The transformer model is the composition of a token embedding, a self-attention head, and a two-layer FNN with GELU activation. We train it on the cross-entropy loss using Adam.
+We train a transformer model on a subset of the TinyStories dataset, https://arxiv.org/abs/2305.07759. The transformer model is the composition of a token embedding, a self-attention head, and a two-layer FNN with GELU activation. We train it on the cross-entropy loss using Adam. This is a modification of the code in curtfox/decoder-memory-capacity for https://arxiv.org/abs/2405.13718.
 
 ## Installing Required Packages
 
