@@ -19,25 +19,24 @@ else:
     device = "cpu"
 
 ### Set parameters ###
-# embed_size = 16
 sequence_length = 10
 dataset = "tinystories"
 epochs = 10000
 batch_size = "full"
 plot_only = False  # change to True if you want to plot existing experimental results, assuming experiment pkl file already exists
-n_vals = [500]
+n = 500
 m_vals = [4,8,12,16,20,24]
 
 runs = []
 # Create runs
-for n in n_vals:
-    for m in m_vals:
-        embed_size = m
-        run = Run(n=n, m=m, sequence_length=sequence_length, d=embed_size)
-        runs.append(run)
+for m in m_vals:
+    run = Run(m=m, d=m)
+    runs.append(run)
 
 # Run experiment
 ex = Experiment(
+    n = n,
+    sequence_length=sequence_length,
     dataset=dataset,
     batch_size=batch_size,
     epochs=epochs,
