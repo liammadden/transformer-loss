@@ -1,19 +1,21 @@
-from dataclasses import dataclass, field
-from run import Run
-from haven import haven_utils as hu
+import os
 import pickle
-from nltk.tokenize import wordpunct_tokenize
-from gensim.corpora.dictionary import Dictionary
+from dataclasses import dataclass, field
+
+import numpy as np
 import torch
-from customTextDataset import *
-from transformer_model import *
-from torchinfo import summary
 import torch.nn as nn
 import torch.optim as optim
 import torch.utils.data as torch_data
-from plotting import *
+from customTextDataset import CustomTextDataset
 from datasets import load_dataset
-import os
+from gensim.corpora.dictionary import Dictionary
+from haven import haven_utils as hu
+from nltk.tokenize import wordpunct_tokenize
+from plotting import plot_experiment
+from run import Run
+from torchinfo import summary
+from transformer_model import DecoderOnlyTransformer
 
 
 @dataclass
@@ -25,7 +27,7 @@ class Experiment:
 
     def run_experiment(self, plot_only, path, device):
         experiment_id = hu.hash_dict({"experiment": self})
-        if plot_only == False:
+        if plot_only is False:
             print("Run Experiment")
             full_dataset = self.process_data()
             for run_num, run in enumerate(self.runs):
@@ -35,10 +37,7 @@ class Experiment:
                 )
                 print("-----Run " + str(run_num + 1) + "-----")
                 ### Train model
-                (
-                    run.model_obj,
-                    run.model_num_params
-                ) = self.create_model(run, device)
+                (run.model_obj, run.model_num_params) = self.create_model(run, device)
                 print("---Training---")
                 run.training_loss_values = self.train(run, device)
             with open(

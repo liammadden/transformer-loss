@@ -1,4 +1,5 @@
 import os
+
 import torch
 from experiment import Experiment
 from run import Run
@@ -26,7 +27,7 @@ epochs = 10000
 batch_size = "full"
 plot_only = False  # change to True if you want to plot existing experimental results, assuming experiment pkl file already exists
 n_vals = [500]
-m_vals = [4,8,12,16,20,24]
+m_vals = [4, 8, 12, 16, 20, 24]
 
 runs = []
 # Create runs
