@@ -36,6 +36,7 @@ class Experiment:
             self.vocab_size, self.training_dataset, self.test_dataset = self.tokenize_data(
                 full_dataset
             )
+            print("Vocabulary size: " + str(self.vocab_size))
             for run_num, run in enumerate(self.runs):
                 torch.manual_seed(0)  # change torch seed here
                 print("-----Run " + str(run_num + 1) + "-----")
@@ -148,7 +149,7 @@ class Experiment:
                 print(f"Epoch: {epoch}, Training Loss: {training_loss}, Test Loss: {test_loss}")
                 training_loss_vals.append(training_loss)
                 test_loss_vals.append(test_loss)
-            if (epoch + 1) % 5000 == 0:
+            if (epoch + 1) % 500 == 0:
                 training_loss, test_loss = self.compute_full_loss(run, device, batch_size)
                 print(f"Epoch: {epoch+1}, Training Loss: {training_loss}, Test Loss: {test_loss}")
                 training_loss_vals.append(training_loss)

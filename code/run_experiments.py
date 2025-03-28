@@ -19,12 +19,12 @@ else:
     device = "cpu"
 
 ### Set parameters ###
-sequence_length = 10
+sequence_length = 100
 dataset = "tinystories"
-epochs = 10000
+epochs = 1000
 batch_size = "full"
 plot_only = False  # change to True if you want to plot existing experimental results, assuming experiment pkl file already exists
-n = 500
+n = 100
 m_vals = [4,8,12,16,20,24,28,32]
 
 runs = []
