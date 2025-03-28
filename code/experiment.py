@@ -146,12 +146,11 @@ class Experiment:
                 optimizer.step()
             if epoch == 0:
                 training_loss, test_loss = self.compute_full_loss(run, device, batch_size)
-                print(f"Epoch: {epoch}, Training Loss: {training_loss}, Test Loss: {test_loss}")
+                print(f"Initial Training Loss: {training_loss}, Initial Test Loss: {test_loss}")
                 training_loss_vals.append(training_loss)
                 test_loss_vals.append(test_loss)
-            if (epoch + 1) % 500 == 0:
+            if epoch == self.epochs - 1:
                 training_loss, test_loss = self.compute_full_loss(run, device, batch_size)
-                print(f"Epoch: {epoch+1}, Training Loss: {training_loss}, Test Loss: {test_loss}")
                 training_loss_vals.append(training_loss)
                 test_loss_vals.append(test_loss)
 
