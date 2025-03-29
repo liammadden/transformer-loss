@@ -21,11 +21,11 @@ else:
 ### Set parameters ###
 sequence_length = 100
 dataset = "tinystories"
-n = 1000
-epochs = 100
-batch_size = 100
+n = 100
+epochs = 1000
+batch_size = "full"
 plot_only = False  # change to True if you want to plot existing experimental results, assuming experiment pkl file already exists
-m_vals = [4,8,12,16,20,24,28,32,36,40,44,48,52,56,60]
+m_vals = [8,12,16,20,24,28,32,36,40,44,48,52,56,60]
 
 runs = []
 # Create runs
