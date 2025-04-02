@@ -53,6 +53,7 @@ def plot_experiment(experiment, path):
 def plot_lineplot(axis, xdata, ydata, xlabel, ylabel):
     axis.set_xlabel(xlabel)
     axis.set_ylabel(ylabel)
+    axis.ticklabel_format(axis='x', style='sci', scilimits=(-4, 4))
     axis.plot(xdata, ydata)
 
 

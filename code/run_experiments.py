@@ -25,7 +25,7 @@ n = 100
 epochs = 1000
 batch_size = "full"
 plot_only = False  # change to True if you want to plot existing experimental results, assuming experiment pkl file already exists
-m_vals = [8,12,16,20,24,28,32,36,40,44,48,52,56,60]
+m_vals = [10, 20, 30, 40, 50, 60, 70, 80, 90]
 
 runs = []
 # Create runs
