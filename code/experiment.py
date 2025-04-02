@@ -35,8 +35,8 @@ class Experiment:
         if plot_only is False:
             print("Run Experiment")
             full_dataset = self.process_data()
-            self.vocab_size, self.training_dataset, self.test_dataset = self.tokenize_data(
-                full_dataset
+            self.vocab_size, self.training_dataset, self.test_dataset = (
+                self.tokenize_data(full_dataset)
             )
             print("Vocabulary size: " + str(self.vocab_size))
             for run_num, run in enumerate(self.runs):
@@ -67,7 +67,7 @@ class Experiment:
         if self.dataset == "tinystories":
             full_dataset = load_dataset("roneneldan/TinyStories", split="train")["text"]
             full_dataset = np.array(full_dataset)
-            sample = np.random.permutation(np.size(full_dataset))[0:2*self.n]
+            sample = np.random.permutation(np.size(full_dataset))[0 : 2 * self.n]
             full_dataset = full_dataset[sample]
             full_dataset = full_dataset.tolist()
         return full_dataset
@@ -82,7 +82,7 @@ class Experiment:
                 tokenized_story = tokenized_story[: self.sequence_length]
                 datasetTokens.append(tokenized_story)
                 j = j + 1
-                if j == 2*self.n:
+                if j == 2 * self.n:
                     break
 
         vocab = Dictionary(datasetTokens)
@@ -100,7 +100,7 @@ class Experiment:
 
         tokenized_dataset = CustomTextDataset(sequence=datasetIDs)
         training_dataset = tokenized_dataset[0 : self.n]
-        test_dataset = tokenized_dataset[self.n : 2*self.n]
+        test_dataset = tokenized_dataset[self.n : 2 * self.n]
 
         return vocab_size, training_dataset, test_dataset
 
@@ -144,18 +144,23 @@ class Experiment:
                 loss.backward()
                 optimizer.step()
             if epoch == 0:
-                training_loss, test_loss = self.compute_full_loss(run, device, batch_size)
-                print(f"Initial Training Loss: {training_loss}, Initial Test Loss: {test_loss}")
+                training_loss, test_loss = self.compute_full_loss(
+                    run, device, batch_size
+                )
+                print(
+                    f"Initial Training Loss: {training_loss}, Initial Test Loss: {test_loss}"
+                )
                 training_loss_vals.append(training_loss)
                 test_loss_vals.append(test_loss)
             if epoch == self.epochs - 1:
-                training_loss, test_loss = self.compute_full_loss(run, device, batch_size)
+                training_loss, test_loss = self.compute_full_loss(
+                    run, device, batch_size
+                )
                 training_loss_vals.append(training_loss)
                 test_loss_vals.append(test_loss)
 
         print(f"Final Training Loss: {training_loss}, Final Test Loss: {test_loss}")
         return training_loss_vals, test_loss_vals
-
 
     def compute_full_loss(self, run, device, batch_size):
         criterion = nn.CrossEntropyLoss(reduction="sum")

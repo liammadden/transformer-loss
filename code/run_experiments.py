@@ -36,7 +36,7 @@ for m in m_vals:
 
 # Run experiment
 ex = Experiment(
-    n = n,
+    n=n,
     sequence_length=sequence_length,
     dataset=dataset,
     batch_size=batch_size,
