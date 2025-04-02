@@ -1,4 +1,5 @@
 import os
+
 import torch
 from experiment import Experiment
 from run import Run
@@ -35,7 +36,7 @@ for m in m_vals:
 
 # Run experiment
 ex = Experiment(
-    n = n,
+    n=n,
     sequence_length=sequence_length,
     dataset=dataset,
     batch_size=batch_size,

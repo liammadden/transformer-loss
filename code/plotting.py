@@ -1,7 +1,6 @@
-import matplotlib.pyplot as plt
 import os
-import matplotlib.colors as colors
-import numpy as np
+
+import matplotlib.pyplot as plt
 
 fontsize_axis = 7
 fontsize_ticks = 6
@@ -42,9 +41,7 @@ def plot_experiment(experiment, path):
     )
 
     plt.savefig(
-        os.path.join(
-            path, "plots", "loss-plot" + ".pdf"
-        ),
+        os.path.join(path, "plots", "loss-plot" + ".pdf"),
         bbox_inches="tight",
     )
     return
@@ -53,7 +50,7 @@ def plot_experiment(experiment, path):
 def plot_lineplot(axis, xdata, ydata, xlabel, ylabel):
     axis.set_xlabel(xlabel)
     axis.set_ylabel(ylabel)
-    axis.ticklabel_format(axis='x', style='sci', scilimits=(-4, 4))
+    axis.ticklabel_format(axis="x", style="sci", scilimits=(-4, 4))
     axis.plot(xdata, ydata)
 
 
