@@ -9,13 +9,14 @@ import torch.optim as optim
 import torch.utils.data as torch_data
 from customTextDataset import CustomTextDataset
 from datasets import load_dataset
-from gensim.corpora.dictionary import Dictionary
+# from gensim.corpora.dictionary import Dictionary
 from haven import haven_utils as hu
 from nltk.tokenize import wordpunct_tokenize
 from plotting import plot_experiment
 from run import Run
 from torchinfo import summary
 from transformer_model import DecoderOnlyTransformer
+from itertools import count # to replace gensim
 
 
 @dataclass
@@ -65,7 +66,9 @@ class Experiment:
     def process_data(self):
         np.random.seed(0)  # change numpy seed here
         if self.dataset == "tinystories":
-            full_dataset = load_dataset("roneneldan/TinyStories", split="train")["text"]
+            # full_dataset = load_dataset("roneneldan/TinyStories", split="train")["text"]
+            ### Full dataset is 2.1 million stories.. try loading only 1%
+            full_dataset = load_dataset("roneneldan/TinyStories", split="train[:1%]")["text"]
             full_dataset = np.array(full_dataset)
             sample = np.random.permutation(np.size(full_dataset))[0 : 2 * self.n]
             full_dataset = full_dataset[sample]
@@ -85,16 +88,27 @@ class Experiment:
                 if j == 2 * self.n:
                     break
 
-        vocab = Dictionary(datasetTokens)
-        vocab_size = len(Dictionary(datasetTokens))
+        # vocab = Dictionary(datasetTokens)
+        # vocab_size = len(Dictionary(datasetTokens))
+
+        ### Replaces gensim.corpora.dictionary
+        token2id = {}
+        id_gen = count(0)
+        for story in datasetTokens:
+            for word in story:
+                if word not in token2id:
+                    new_id = next(id_gen)
+                    token2id[word] = new_id
+        vocab_size = len(token2id)
 
         ### Convert tokens to ID's
         datasetIDs = []
         for story in datasetTokens:
-            storyID = []
+            storyIDs = []
             for word in story:
-                storyID.append(vocab.token2id[word])
-            datasetIDs.append(storyID)
+                # storyIDs.append(vocab.token2id[word])
+                storyIDs.append(token2id[word])
+            datasetIDs.append(storyIDs)
 
         datasetIDs = torch.tensor(datasetIDs)
 
